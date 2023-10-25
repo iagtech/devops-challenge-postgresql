@@ -1,0 +1,10 @@
+*.iml
+.idea/
+.coverage
+__pycache__/
+target/
+test
+mysite/__pycache__/
+todo/__pycache__/
+todo/migrations/__pycache__/
+test-reports/*.xml

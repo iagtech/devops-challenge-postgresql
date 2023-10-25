@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - datavolume:/var/lib/postgresql/data
+  backend:
+    build:
+      context: backend/
+      dockerfile: Dockerfile
+    environment:
+      DB_HOST: db
+      DB_NAME: postgres
+      DB_PASS: password
+      DB_PORT: 5432
+      DB_USER: postgres
+  frontend:
+    build:
+      context: frontend/
+      dockerfile: Dockerfile
+    depends_on:
+      - "backend"
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+volumes:
+  datavolume:
